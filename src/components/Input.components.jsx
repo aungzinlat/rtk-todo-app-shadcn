@@ -1,28 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { addTodo } from "@/store/slice/todo.slice";
+import { usePostTodoMutation } from "@/store/services/endpoints/todo.endpoint";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
-const InputComponents = () => {
+const InputComponents = ({ handleRefetch }) => {
   const [todo, setTodo] = useState("");
+  const [fun, data] = usePostTodoMutation();
 
-  const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    setTodo((pre) => ({ ...pre, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newTodo = {
-      id: Math.floor(Math.random() & 888888) + 100000,
-      name: todo,
-      isDone: false,
-      createAt: new Date().toLocaleString(),
-    };
-    dispatch(addTodo(todo));
-    setTodo("");
+    await fun({
+      title: todo,
+    });
+    handleRefetch();
   };
 
   return (
@@ -31,9 +21,10 @@ const InputComponents = () => {
       className="flex w-full  items-center space-x-2"
     >
       <Input
-        onChange={handleChange}
         value={todo}
+        onChange={(e) => setTodo(e.target.value)}
         type="text"
+        name="title"
         placeholder="todo"
       />
       <Button className="h-14" type="submit">
