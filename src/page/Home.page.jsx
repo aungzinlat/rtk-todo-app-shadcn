@@ -13,9 +13,16 @@ const HomePage = () => {
 
   return (
     <div className=" w-full h-screen flex justify-center items-center">
-      <div className=" max-w-lg w-full flex flex-col gap-5">
+      <div className=" max-w-lg w-full min-h-[400px] flex flex-col gap-5">
+        <div>
+          <h1 className=" text-4xl font-bold mb-4">Todo App</h1>
+        </div>
         <InputComponents handleRefetch={handleRefetch} />
-        <ListComponents isLoading={isLoading} data={data} />
+        <ListComponents
+          isLoading={isLoading}
+          data={data}
+          handleRefetch={handleRefetch}
+        />
       </div>
     </div>
   );

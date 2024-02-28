@@ -9,10 +9,13 @@ const InputComponents = ({ handleRefetch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fun({
-      title: todo,
-    });
-    handleRefetch();
+    if (todo !== "") {
+      await fun({
+        title: todo,
+      });
+      handleRefetch();
+      setTodo("");
+    }
   };
 
   return (
@@ -25,7 +28,7 @@ const InputComponents = ({ handleRefetch }) => {
         onChange={(e) => setTodo(e.target.value)}
         type="text"
         name="title"
-        placeholder="todo"
+        placeholder=""
       />
       <Button className="h-14" type="submit">
         Add Task

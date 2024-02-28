@@ -11,34 +11,38 @@ import {
 } from "./ui/table";
 
 const ListComponents = ({ isLoading, data, handleRefetch }) => {
-  console.log(data);
-  
-
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <div className=" text-center">Loading...</div>
       ) : (
         <div className=" w-full rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>#</TableHead>
-                <TableHead>List</TableHead>
-                <TableHead></TableHead>
+                <TableHead className=" w-10 text-center h-4 p-2">#</TableHead>
+                <TableHead>Lists</TableHead>
+                <TableHead className="text-center w-40">
+                  ( <span>{data.filter((todo) => todo.completed).length}</span>{" "}
+                  /<span>{data?.length}</span> )
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data ? (
+              {data.length !== 0 ? (
                 <>
                   {data.map((todo) => (
-                    <ListCardComponents key={todo.id} data={todo} />
+                    <ListCardComponents
+                      key={todo.id}
+                      data={todo}
+                      handleRefetch={handleRefetch}
+                    />
                   ))}
                 </>
               ) : (
                 <TableRow>
-                  <TableCell colSpan={4} className="h-24 text-center">
-                    No results.
+                  <TableCell colSpan={4} className=" h-56 text-center">
+                    There is no Todo List
                   </TableCell>
                 </TableRow>
               )}

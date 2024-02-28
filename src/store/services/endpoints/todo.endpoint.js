@@ -15,7 +15,31 @@ const todoEndpoint = ApiService.injectEndpoints({
         },
       }),
     }),
+    editTodo: builder.mutation({
+      query: ({ id, ...newData }) => ({
+        url: `/todos/${id}`,
+        method: "PATCH",
+        body: newData,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
+    }),
+    deleteTodo: builder.mutation({
+      query: (id) => ({
+        url: `/todos/${id}`,
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetTodoQuery, usePostTodoMutation } = todoEndpoint;
+export const {
+  useGetTodoQuery,
+  usePostTodoMutation,
+  useEditTodoMutation,
+  useDeleteTodoMutation,
+} = todoEndpoint;

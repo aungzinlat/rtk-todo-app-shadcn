@@ -1,12 +1,9 @@
 {
   "todos": [
     {
-      "id": "1",
-      "title": "hello"
-    },
-    {
       "title": "welcome",
-      "id": "kXn0xoq"
+      "id": 1,
+      "completed": true
     }
   ]
 }
